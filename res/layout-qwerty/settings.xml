@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+>
+<EditText
+  android:text="@string/twitter" 
+   android:id="@+id/twitter" 
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:lines="1"
+/>
+<EditText
+  android:text="@string/facebook" 
+   android:id="@+id/facebook" 
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:layout_below="@id/twitter"
+   android:lines="1"
+   />
+<EditText
+  android:text="@string/foursquare" 
+   android:id="@+id/foursquare" 
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:layout_below="@id/facebook"
+   android:lines="1"
+/>
+<CheckBox 
+  android:text="@string/default_twitter" 
+   android:id="@+id/defaulttwitter" 
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+/>
+<CheckBox 
+  android:text="@string/default_facebook" 
+   android:id="@+id/defaultfacebook" 
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+	android:layout_toRightOf="@id/defaulttwitter"
+	/>
+<Button 
+   android:text="@string/save_settings" 
+   android:id="@+id/savesettings" 
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:layout_alignParentBottom="true"
+/>
+<Button 
+   android:text="@string/cancel_settings" 
+   android:id="@+id/cancelsettings" 
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:layout_alignParentBottom="true"
+/>
+	
+</LinearLayout>

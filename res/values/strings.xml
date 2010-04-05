@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cancel_settings">Cancel</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="default_facebook">Default Facebook</string>
+    <string name="default_twitter">Default Twitter</string>
+    <string name="view_public_games">View Public Games</string>
+    <string name="remove_completed_games">Remove Completed Games</string>
+    <string name="no_games">No Games.</string>
+    <string name="app_name">GameOn by Jittr</string>
+    <string name="games">Games</string>
+    <string name="add_game">Add Game</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="cancel">Cancel</string>
+    <string name="unsaved_changes_title">Unsaved Changes</string>
+    <string name="unsaved_changes_message">Would you like to add this Game?</string>
+    <string name="discard">Discard</string>
+    <string name="settings">Settings</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">FaceBook</string>
+    <string name="foursquare">FourSquare</string>
+    <string name="update_user_settings">Update User Settings</string>
+</resources>
