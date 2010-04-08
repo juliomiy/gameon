@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+<Button android:text="@string/cancel" 
+        android:id="@+id/cancel_button" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+ >
+</Button>
+<Button 
+      android:layout_below="@+id/cancel_button" 
+      android:layout_width="wrap_content" 
+      android:text="@string/done"
+      android:id="@+id/done" 
+      android:layout_height="wrap_content">
+</Button>
+<TextView 
+    android:layout_below="@+id/done"
+    android:id="@+id/title" 
+    android:layout_width="wrap_content" 
+    android:text="@string/title" 
+    android:layout_height="wrap_content">
+</TextView>
+<TextView 
+   android:layout_below="@+id/title" 
+   android:id="@+id/gamedate" 
+   android:layout_width="wrap_content" 
+   android:text="@string/game_date"
+   android:layout_height="wrap_content">
+</TextView>
+<RadioGroup
+   android:id="@+id/teamradiogroup"
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:layout_below="@+id/gamedate"
+>
+<RadioButton 
+   android:layout_below="@+id/gamedate"
+   android:layout_width="wrap_content"
+   android:text="@string/team1"
+   android:id="@+id/team1" 
+   android:layout_height="wrap_content">
+</RadioButton>
+<RadioButton 
+    android:layout_below="@+id/team1" 
+    android:layout_width="wrap_content" 
+    android:text="@string/team2"
+    android:id="@+id/team2" 
+    android:layout_height="wrap_content">
+</RadioButton>
+</RadioGroup>
+</RelativeLayout>

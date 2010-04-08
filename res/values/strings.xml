@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="game_date">Game Date</string>
+    <string name="team2">Team2</string>
+    <string name="team1">Team1</string>
+    <string name="done">Done</string>
     <string name="cancel_settings">Cancel</string>
     <string name="save_settings">Save Settings</string>
     <string name="default_facebook">Default Facebook</string>
@@ -20,4 +24,7 @@
     <string name="facebook">FaceBook</string>
     <string name="foursquare">FourSquare</string>
     <string name="update_user_settings">Update User Settings</string>
+    <string name="customize_public_game">Customize Public Game</string>
+    <string name="title">Title</string>
 </resources>
+

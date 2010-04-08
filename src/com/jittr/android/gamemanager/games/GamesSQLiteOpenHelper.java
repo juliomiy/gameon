@@ -67,7 +67,7 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
 				"create table " + GAME_TABLE +" (" +
 				GAME_ID + " integer primary key autoincrement not null," +
 				GAME_NAME + " text," +
-				GAME_TYPE + " integer not null default 0," +
+				GAME_TYPE + " text," +
 				GAME_PUBLIC_PRIVATE + " integer not null default 0," +
 				GAME_COMPLETE + " text not null default 0," +
 				GAME_CREATEDDATE + " timestamp not null default CURRENT_TIMESTAMP," +

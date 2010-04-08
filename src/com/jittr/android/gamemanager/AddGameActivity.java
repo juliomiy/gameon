@@ -4,7 +4,6 @@ import com.jittr.android.gamemanager.games.Game;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Address;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -49,17 +48,19 @@ public class AddGameActivity extends GameOnActivity {
 
 	public void viewPublicGameClicked(View view) {
 		Intent intent = new Intent(AddGameActivity.this, ViewPublicGameActivity.class);
-		//startActivity(intent);
 		startActivityForResult(intent,REQUEST_CHOOSE_PUBLIC_GAME);
-	}//viewPublicGameActivity
+	} //viewPublicGameActivity
 
 	@Override
 	public void onActivityResult(int requestCode,int resultCode, Intent data) {
 
 		if (REQUEST_CHOOSE_PUBLIC_GAME == requestCode && RESULT_OK == resultCode) {
 			title = data.getParcelableExtra(ViewPublicGameActivity.PUBLIC_GAME_RESULT);
-			
-			//TODO What the activity Returns
+			/* allow user to customize the game, choose who they are backing */
+            if (title != null) {
+        		Intent intent = new Intent(AddGameActivity.this, CustomizePublicGameActivity.class);
+        		startActivityForResult(intent,REQUEST_CHOOSE_PUBLIC_GAME);
+            }
 		} else {
 			super.onActivityResult(requestCode,resultCode,data);
 		}
