@@ -51,4 +51,26 @@
     android:layout_height="wrap_content">
 </RadioButton>
 </RadioGroup>
+<CheckBox 
+    android:layout_below="@+id/teamradiogroup" 
+    android:text="@string/facebook" 
+    android:id="@+id/facebook"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content">
+ </CheckBox>
+<CheckBox 
+    android:text="@string/twitter" 
+    android:id="@+id/twitter" 
+    android:layout_toRightOf="@+id/facebook" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content">
+ </CheckBox>
+<CheckBox 
+    android:text="@string/foursquare" 
+    android:id="@+id/foursquare" 
+    android:layout_toRightOf="@+id/twitter" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content">
+ </CheckBox>
+
 </RelativeLayout>

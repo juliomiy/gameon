@@ -4,6 +4,9 @@
           android:title="Preferences"
           android:icon="@drawable/ic_menu_preferences" 
      />
+     <item android:id="@+id/testOAuth"
+          android:title="Test OAuth"
+     />
      <item android:id="@+id/quit"
           android:title="Quit" />
  </menu>

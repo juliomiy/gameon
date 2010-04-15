@@ -68,6 +68,9 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
 				GAME_ID + " integer primary key autoincrement not null," +
 				GAME_NAME + " text," +
 				GAME_TYPE + " text," +
+				GAME_FACEBOOK + " text null," +
+				GAME_TWITTER + " text null, " +
+				GAME_FOURSQUARE + " text null," +
 				GAME_PUBLIC_PRIVATE + " integer not null default 0," +
 				GAME_COMPLETE + " text not null default 0," +
 				GAME_CREATEDDATE + " timestamp not null default CURRENT_TIMESTAMP," +
@@ -85,9 +88,9 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
                 " foursquare text null," +
 		        " twitter text null," +
 		        " facebook text null," +
-				" twitterDefault text not null default '0'," +
-				" facebookDefault text not null default '0'," +
-				" foursquareDefault text not null default '0'," +
+				" twitterDefault text not null default 'false'," +
+				" facebookDefault text not null default 'false'," +
+				" foursquareDefault text not null default 'false'," +
 				" lastSync datetime null," +
 				" createdDate timestamp not null default CURRENT_TIMESTAMP," +
 				" modifiedDate timestamp null " +

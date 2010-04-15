@@ -29,8 +29,17 @@ public class Game extends baseTablePojo implements Parcelable {
 	private String eventDate;
 	private int numberSubscribers;
 	private String type;
+	private String sport;
+	private String league;
+	private String homeTeam;
+	private String visitingTeam;
+	/* Will contain network identifiers where game is syndicated to */
+	private String facebookNetwork;
+	private String twitterNetwork;
+	private String foursquareNetwork;
 	private boolean complete;
     private int visibility;
+  
    
     public Game() {
     	super();
@@ -56,13 +65,41 @@ public class Game extends baseTablePojo implements Parcelable {
      	//name = "this is a test";
      }
 	public void readFromParcel(Parcel in) {
-		// TODO Auto-generated method stub
 	   id = in.readLong();
 	   title = in.readString();
+	   description = in.readString();
+	   eventName = in.readString();
+	   eventDate = in.readString();
+	   numberSubscribers = in.readInt();
 	   type = in.readString();
+	   sport = in.readString();
+	   league = in.readString();
+	   homeTeam = in.readString();
+	   visitingTeam = in.readString();
+	   facebookNetwork = in.readString();
+	   twitterNetwork = in.readString();
+	   foursquareNetwork = in.readString();
+	  // in.read
 	   //complete=in.readBooleanArray(null);
 	   visibility=in.readInt();
 	   this.setCreatedDate(in.readString());
+	}  //readFromParcel
+	
+    public void writeToParcel(Parcel in, int arg1) {
+		in.writeLong(id);
+	    in.writeString(title);
+	    in.writeString(description);
+	    in.writeString(eventName);
+	    in.writeString(eventDate);
+	    in.writeInt(numberSubscribers);
+	    in.writeString(type);
+	    in.writeString(sport);
+	    in.writeString(league);
+	    in.writeString(homeTeam);
+	    in.writeString(visitingTeam);
+	    in.writeString(facebookNetwork);
+	    in.writeString(twitterNetwork);
+        in.writeString(foursquareNetwork);
 	}
 	public Game(String taskName) {
 		title = taskName;
@@ -70,6 +107,48 @@ public class Game extends baseTablePojo implements Parcelable {
 
 	public String getDescription() {
 		return description;
+	}
+	public String getFacebookNetwork() {
+		return facebookNetwork;
+	}
+	public String getTwitterNetwork() {
+		return twitterNetwork;
+	}
+	public void setTwitterNetwork(String twitterNetwork) {
+		this.twitterNetwork = twitterNetwork;
+	}
+	public String getFoursquareNetwork() {
+		return foursquareNetwork;
+	}
+	public void setFoursquareNetwork(String foursquareNetwork) {
+		this.foursquareNetwork = foursquareNetwork;
+	}
+	public void setFacebookNetwork(String facebookNetwork) {
+		this.facebookNetwork = facebookNetwork;
+	}
+	public String getSport() {
+		return sport;
+	}
+	public void setSport(String sport) {
+		this.sport = sport;
+	}
+	public String getLeague() {
+		return league;
+	}
+	public void setLeague(String league) {
+		this.league = league;
+	}
+	public String getHomeTeam() {
+		return homeTeam;
+	}
+	public String getVisitingTeam() {
+		return visitingTeam;
+	}
+	public void setVisitingTeam(String visitingTeam) {
+		this.visitingTeam = visitingTeam;
+	}
+	public void setHomeTeam(String homeTeam) {
+		this.homeTeam = homeTeam;
 	}
 	public void setDescription(String description) {
 		this.description = description;
@@ -139,11 +218,7 @@ public class Game extends baseTablePojo implements Parcelable {
 		return 0;
 	}
 
-	public void writeToParcel(Parcel in, int arg1) {
-		
-		in.writeLong(this.getId());
-	    in.writeString(this.getName());	
-	}
+	
 
 	
 	@Override

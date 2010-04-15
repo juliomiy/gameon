@@ -1,6 +1,8 @@
 package com.jittr.android.gamemanager;
 
 import com.jittr.android.gamemanager.games.Game;
+import com.jittr.android.gamemanager.CustomizePublicGameActivity;
+import static com.jittr.android.gamemanager.CustomizePublicGameActivity.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,16 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+//TODO = for user/manually entered game, need to trigger a customize activity
 public class AddGameActivity extends GameOnActivity {
 	
 	public static final int REQUEST_CHOOSE_PUBLIC_GAME = 0;
+	public static final int CUSTOMIZE_PUBLIC_GAME = 1;
+	
 	private EditText gameNameEditText;
 	private Button addButton;
 	private Button cancelButton;
 	private Button viewPublicButton;
 	private boolean changesPending;
 	private AlertDialog unsavedChangesDialog;
-	private Game title;
+	private Game game;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,17 +37,17 @@ public class AddGameActivity extends GameOnActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (null != title) {
-           gameNameEditText.setText(title.getName());			
-           title = null;
+		if (null != game) {
+           gameNameEditText.setText(game.getName());			
+           //game = null;
 		}
 	//	adapter.forceReload();
 	}
 	
 	protected void addGame() {
 		String gameName = gameNameEditText.getText().toString();
-		Game g = new Game(gameName);
-		getStuffApplication().addGame(g);
+		//Game g = new Game(gameName);
+		getStuffApplication().addGame(game);
 		finish();
 	}
 
@@ -55,12 +60,15 @@ public class AddGameActivity extends GameOnActivity {
 	public void onActivityResult(int requestCode,int resultCode, Intent data) {
 
 		if (REQUEST_CHOOSE_PUBLIC_GAME == requestCode && RESULT_OK == resultCode) {
-			title = data.getParcelableExtra(ViewPublicGameActivity.PUBLIC_GAME_RESULT);
+			game = data.getParcelableExtra(ViewPublicGameActivity.PUBLIC_GAME_RESULT);
 			/* allow user to customize the game, choose who they are backing */
-            if (title != null) {
+            if (game != null) {
         		Intent intent = new Intent(AddGameActivity.this, CustomizePublicGameActivity.class);
-        		startActivityForResult(intent,REQUEST_CHOOSE_PUBLIC_GAME);
+        		intent.putExtra(CUSTOMIZE_GAME,game);
+        		startActivityForResult(intent,CUSTOMIZE_PUBLIC_GAME);
             }
+		} else if (CUSTOMIZE_PUBLIC_GAME == requestCode && RESULT_OK == resultCode) {
+			    game = data.getParcelableExtra(CustomizePublicGameActivity.CUSTOMIZE_GAME);
 		} else {
 			super.onActivityResult(requestCode,resultCode,data);
 		}

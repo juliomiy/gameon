@@ -1,5 +1,7 @@
 package com.jittr.android.gamemanager;
 
+import static com.jittr.android.gamemanager.ViewPublicGameActivity.CUSTOMIZE_GAME;
+
 import com.jittr.android.gamemanager.adapters.GameListAdapter;
 import com.jittr.android.gamemanager.games.Game;
 import android.app.ListActivity;
@@ -11,6 +13,8 @@ import android.widget.ListView;
 
 public class ViewPublicGameActivity extends ListActivity {
 	public static final String PUBLIC_GAME_RESULT = "public_name";
+	public static final String CUSTOMIZE_GAME = "customize_game";
+	private Intent callingIntent;
 	private GameListAdapter adapter;
 	private GameManagerApplication app;
 	private Button cancelButton;
@@ -29,7 +33,8 @@ public class ViewPublicGameActivity extends ListActivity {
 	@Override
 	protected void onResume() {
 	   super.onResume();
-		adapter.forceReload();
+	   callingIntent = super.getIntent();
+       adapter.forceReload();
 	}
 
 	private void setUpViews() {
@@ -47,15 +52,15 @@ public class ViewPublicGameActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 //		adapter.toggleGameCompleteAtPosition(position);
-		Game g = adapter.getItem(position);
-		//title = (Address) g.getName();
-		if (null != g.getName()) {
-			title = g;
-			//title.setAddressLine(0,g.getName());
-			
-			Intent intent = new Intent();
-			intent.putExtra(PUBLIC_GAME_RESULT,title);
-			setResult(RESULT_OK, intent);
+		Game game = adapter.getItem(position);
+	
+		if (null != game) {
+			//Intent intent = new Intent(ViewPublicGameActivity.this, CustomizePublicGameActivity.class);
+			callingIntent.putExtra(PUBLIC_GAME_RESULT,game);
+			//startActivity(intent);
+			//startActivityForResult(intent,REQUEST_CHOOSE_PUBLIC_GAME);			
+	//		Intent intent = new Intent();
+			setResult(RESULT_OK, callingIntent);
 		}
 		
 		finish();
@@ -63,6 +68,7 @@ public class ViewPublicGameActivity extends ListActivity {
 	}
 
 	protected void cancel() {
+		setResult(RESULT_CANCELED,callingIntent);
         finish();		
 	}
 

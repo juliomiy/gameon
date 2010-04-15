@@ -47,6 +47,10 @@ public class ViewGamesActivity extends ListActivity {
 		    intent = new Intent(ViewGamesActivity.this,UpdateUserSettingsActivity.class);
 		    startActivity(intent);
 		    return true;
+		} else if (item.getItemId() == R.id.testOAuth) {
+		    intent = new Intent(ViewGamesActivity.this,testOAuthActivity.class);
+		    startActivity(intent);
+		    return true;	
 		}
 		
        return false;

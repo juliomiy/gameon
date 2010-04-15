@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-
 import com.jittr.android.gamemanager.GameOnActivity;
 
 public class UpdateUserSettingsActivity extends GameOnActivity {
@@ -25,6 +23,7 @@ public class UpdateUserSettingsActivity extends GameOnActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
+        userSettings = getStuffApplication().getGameUserSettings();
         setUpViews();
     } //onCreateBundle
 
@@ -48,7 +47,7 @@ public class UpdateUserSettingsActivity extends GameOnActivity {
 		saveButton=(Button)findViewById(R.id.savesettings);
 		cancelButton=(Button)findViewById(R.id.cancelsettings);
 		
-	    userSettings = new GameUserSettings();
+	  //  userSettings = new GameUserSettings();
 		twitterEditText.setText(userSettings.getTwitter());
 		facebookEditText.setText(userSettings.getFacebook());
 		foursquareEditText.setText(userSettings.getFoursquare());

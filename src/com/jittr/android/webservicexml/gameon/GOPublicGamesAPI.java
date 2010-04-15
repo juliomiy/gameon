@@ -28,12 +28,22 @@ public final class GOPublicGamesAPI extends GameOnHandler {
 				currentGame.setName(builder.toString());
 			} else if (localName.equalsIgnoreCase("eventname")){
 				currentGame.setEventName(builder.toString());
+			} else if (localName.equalsIgnoreCase("eventdate")){
+					currentGame.setEventDate(builder.toString());
 			} else if (localName.equalsIgnoreCase("description")){
 				currentGame.setDescription(builder.toString());
 			} else if (localName.equalsIgnoreCase("type")) {
 				currentGame.setType(builder.toString());
+			} else if (localName.equalsIgnoreCase("sport")) {
+			    currentGame.setSport(builder.toString());
+			} else if (localName.equalsIgnoreCase("league")) {
+				currentGame.setLeague(builder.toString());	    
 			} else if (localName.equalsIgnoreCase("numbersubscribers")) {
 			    currentGame.setNumberSubscribers(Integer.parseInt(builder.toString()));
+			} else if (localName.equalsIgnoreCase("team1")) {
+			    currentGame.setHomeTeam(builder.toString());
+			}  else if (localName.equalsIgnoreCase("team2")) {
+				    currentGame.setVisitingTeam(builder.toString());
     		} else if (localName.equalsIgnoreCase("game")) {
 				games.add(currentGame);
 			}

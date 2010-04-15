@@ -17,6 +17,7 @@ public class GameManagerApplication extends Application {
 	private SQLiteDatabase database;
 	private ArrayList<Game> currentGames;
 	private ArrayList<Game> publicGames;
+	private GameUserSettings userSettings;
 //	private SaxFeedParser p;
 	
 	@Override
@@ -63,6 +64,10 @@ public class GameManagerApplication extends Application {
 		values.put(GamesSQLiteOpenHelper.GAME_NAME, t.getName());
 		values.put(GamesSQLiteOpenHelper.GAME_COMPLETE, Boolean.toString(t.isComplete()));
         values.put(GamesSQLiteOpenHelper.GAME_TYPE, t.getType());
+        values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK,t.getFacebookNetwork());
+        values.put(GamesSQLiteOpenHelper.GAME_TWITTER,t.getTwitterNetwork());
+        values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE,t.getFoursquareNetwork());
+
 		t.setId(database.insert(GamesSQLiteOpenHelper.GAME_TABLE, null, values));
 
 		currentGames.add(t);  //Add inserted game to internal list
@@ -78,6 +83,9 @@ public class GameManagerApplication extends Application {
 		values.put(GamesSQLiteOpenHelper.GAME_NAME, t.getName());
 		values.put(GamesSQLiteOpenHelper.GAME_PUBLIC_PRIVATE, Integer.toString(t.getVisibility()));
 		values.put(GamesSQLiteOpenHelper.GAME_TYPE, t.getType());
+		values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK,t.getFacebookNetwork());
+	    values.put(GamesSQLiteOpenHelper.GAME_TWITTER,t.getTwitterNetwork());
+	    values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE,t.getFoursquareNetwork());
 		values.put(GamesSQLiteOpenHelper.GAME_MODIFIEDDATE, t.getModifiedDate());
 
 		long id = t.getId();
@@ -86,6 +94,7 @@ public class GameManagerApplication extends Application {
 		database.update(GamesSQLiteOpenHelper.GAME_TABLE, values, where, null);
 	}
 	
+	//TODO - uncomment the where clause
 	public void saveSettings(GameUserSettings settings) {
 		assert(null != settings);
 		ContentValues values = new ContentValues();
@@ -93,16 +102,42 @@ public class GameManagerApplication extends Application {
 		values.put(GamesSQLiteOpenHelper.GAME_TWITTER, settings.getTwitter());
 		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE, settings.getFoursquare());
 		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE_DEFAULT, settings.isDefaultFoursquare());
-		values.put(GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, settings.isDefaultTwitter());
-		values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT, settings.isDefaultFacebook());
+		values.put(GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, Boolean.toString( settings.isDefaultTwitter()));
+		values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT,Boolean.toString(settings.isDefaultFacebook()));
 		
 		values.put(GamesSQLiteOpenHelper.GAME_MODIFIEDDATE, settings.getModifiedDate());
 		long id = settings.getUserID();
 		String where = String.format("%s = %d", GamesSQLiteOpenHelper.GAME_USER_ID, id);
 
-		database.update(GamesSQLiteOpenHelper.GAME_USER_SETTINGS_TABLE, values, where, null);
+		database.update(GamesSQLiteOpenHelper.GAME_USER_SETTINGS_TABLE, values, null, null);
 		
 	}
+	/* Should be a singleton select.
+	 * assume only 1 record so the where clause is omitted
+	 * TODO - treat as a singleton - change to a singleton class for the userSettings
+	 */
+	public GameUserSettings getGameUserSettings() {
+	 //   String tableFields[]= {GamesSQLiteOpenHelper.GAME_FACEBOOK,GamesSQLiteOpenHelper.GAME_TWITTER,GamesSQLiteOpenHelper.GAME_FOURSQUARE,GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT, GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, GamesSQLiteOpenHelper.GAME_FOURSQUARE_DEFAULT};
+	    Cursor tasksCursor = database.query(GamesSQLiteOpenHelper.GAME_USER_SETTINGS_TABLE, new String[] {GamesSQLiteOpenHelper.GAME_FACEBOOK,GamesSQLiteOpenHelper.GAME_TWITTER,GamesSQLiteOpenHelper.GAME_FOURSQUARE,GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT, GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, GamesSQLiteOpenHelper.GAME_FOURSQUARE_DEFAULT},  null, null, null, null, null);
+		tasksCursor.moveToFirst();
+		if (! tasksCursor.isAfterLast()) {
+			userSettings = new GameUserSettings();
+			do {
+               // String bool = tasksCursor.getString(3);
+               // if (bool == "1" || bool == "true" ) userSettings.setDefaultFacebook(true);
+				userSettings.setDefaultFacebook(Boolean.parseBoolean(tasksCursor.getString(3)));	
+	             userSettings.setDefaultTwitter(Boolean.parseBoolean(tasksCursor.getString(4)));
+	             userSettings.setDefaultFoursquare(Boolean.parseBoolean(tasksCursor.getString(5)));
+                 userSettings.setFacebook(tasksCursor.getString(0));
+                 userSettings.setTwitter(tasksCursor.getString(1));
+                 userSettings.setFoursquare(tasksCursor.getString(2));
+    		} while (tasksCursor.moveToNext());
+		} //if
+		tasksCursor.close();
+		return userSettings;
+	
+	}  //GameUserSettings
+	
 	public void deleteGames(Long[] ids) {
 		StringBuffer idList = new StringBuffer();
 		for (int i=0; i<ids.length; i++) {
