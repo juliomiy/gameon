@@ -1,5 +1,15 @@
 package com.jittr.android.gamemanager;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import com.jittr.android.gamemanager.GameManagerApplication;
+import com.jittr.android.gamemanager.GameUserSettings;
 import android.content.Intent;
 import android.net.Uri;
 import oauth.signpost.*;
@@ -21,10 +31,12 @@ public class GameOnOAuth {
     private OAuthProvider provider;
     private OAuthConsumer consumer;
     private String providerUrl;
+    private GameUserSettings userSettings;
     
  // create a consumer object and configure it with the access
     // token and token secret obtained from the service provider
     
+   
     public void Step1() {
     	 consumer = new DefaultOAuthConsumer(GAMEON_CONSUMER_KEY,GAMEON_CONSUMER_SECRET);
     // create a new service provider object and configure it with
@@ -62,4 +74,64 @@ public class GameOnOAuth {
 	public void setProviderUrl(String providerUrl) {
 		this.providerUrl = providerUrl;
 	} //
+
+	public void sendTwitterUpdate(String twitterStatusUpdate, String OAuthToken, String OAuthTokenSecret) {
+		 consumer = new DefaultOAuthConsumer(GAMEON_CONSUMER_KEY,GAMEON_CONSUMER_SECRET);
+		 consumer.setTokenWithSecret(OAuthToken, OAuthTokenSecret);
+		// create a request that requires authentication
+	        URL url;
+	        //int sc;
+			try {
+				url = new URL("http://twitter.com/statuses/mentions.xml");
+				//url = new URL("http://api.twitter.com/1/statuses/update.xml");
+				
+				HttpURLConnection request = (HttpURLConnection) url.openConnection();
+				request.setRequestMethod("GET");
+				
+				//request.setRequestMethod("POST");
+				request.setDoOutput(true);
+				request.setDoInput(true);
+				//BufferedReader br = new BufferedReader(request.getInputStream());
+			
+  			//request.addRequestProperty("status", "firstandroidjittrstatus");
+				//request.
+				 // sign the request
+		        consumer.sign(request);
+		        // send the request
+		        request.connect();
+		    
+		      //  BufferedReader br = new BufferedReader(new InputStreamReader(request.));
+		      
+		    	//InputStream i = request.getInputStream();
+		        // response status should be 200 OK
+		        int sc = request.getResponseCode();
+                if (sc == 200) {
+                    String rm = request.getResponseMessage();
+                	System.out.println("Succeed on cal l" + sc);
+                	BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+                	String in;
+                	System.out.println("test");
+                	//while ((in = br.readLine()) != null) {
+                	//	System.out.print(in);
+                	//}  //while
+                } else {
+                	System.out.println("failure " + sc );
+                }  //if
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (OAuthMessageSignerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (OAuthExpectationFailedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (OAuthCommunicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 }   //Class GameOnAuth

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="test_oauth">Test OAuth</string>
+    <string name="test_twitter_update">Test Twitter Update</string>
     <string name="game_date">Game Date</string>
     <string name="team2">Team2</string>
     <string name="team1">Team1</string>

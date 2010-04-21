@@ -12,6 +12,26 @@ DELIMITER //
 
 use jittrgameon
 //
+/* listings of all games public and user defined */
+/* if the game is a public game, will have a reference to the Master in go_publicgames*/
+drop table if exists go_games
+//
+create table go_games (
+   id varchar(25) not null,
+   publicGameID int null default 0,
+   createdBy varchar(50) not null,
+   title varchar(50) not null,
+   eventName varchar(50) null,
+   date timestamp null,
+   description varchar(255) null,
+   type  int not null default 0,
+   sport int not null default 0,
+   createdDate timestamp not null default current_timestamp(),
+   modifiedDate timestamp null,
+   PRIMARY KEY(id)
+)
+ENGINE INNODB
+//
 /* listing of all public games - college and professional */
 drop table if exists go_publicgames
 //

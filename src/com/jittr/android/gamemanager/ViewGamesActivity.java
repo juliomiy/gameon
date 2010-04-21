@@ -51,6 +51,10 @@ public class ViewGamesActivity extends ListActivity {
 		    intent = new Intent(ViewGamesActivity.this,testOAuthActivity.class);
 		    startActivity(intent);
 		    return true;	
+		} else if (item.getItemId() ==R.id.testTwitterStatus) {
+		    intent = new Intent(ViewGamesActivity.this,testTwitterStatusUpdateActivity.class);
+		    startActivity(intent);
+	         return true;
 		}
 		
        return false;

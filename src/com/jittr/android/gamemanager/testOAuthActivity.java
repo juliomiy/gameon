@@ -2,15 +2,13 @@ package com.jittr.android.gamemanager;
 
 import com.jittr.android.gamemanager.GameOnOAuth;
 
-import android.app.Activity;
 import android.content.Intent;
-//import static android.content.Intent.;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class testOAuthActivity extends Activity {
+public class testOAuthActivity extends GameOnActivity {
 	private Button cancelButton;
 	private Button testoauthButton;
     private GameOnOAuth OAuth;

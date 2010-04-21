@@ -2,6 +2,8 @@ package com.jittr.android.gamemanager;
 
 import com.jittr.android.gamemanager.games.Game;
 import com.jittr.android.gamemanager.CustomizePublicGameActivity;
+import com.jittr.android.webservice.TwitterAPIs;
+
 import static com.jittr.android.gamemanager.CustomizePublicGameActivity.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,6 +27,7 @@ public class AddGameActivity extends GameOnActivity {
 	private Button viewPublicButton;
 	private boolean changesPending;
 	private AlertDialog unsavedChangesDialog;
+	private GameUserSettings userSettings;
 	private Game game;
 
 	@Override
@@ -48,6 +51,13 @@ public class AddGameActivity extends GameOnActivity {
 		String gameName = gameNameEditText.getText().toString();
 		//Game g = new Game(gameName);
 		getStuffApplication().addGame(game);
+		//game.
+		if (game.getTwitterNetwork() != null) {
+			userSettings = getStuffApplication().getGameUserSettings();
+			TwitterAPIs twitter = new TwitterAPIs();
+			String statusUpdate= game.getName();
+			twitter.sendTwitterUpdate( userSettings.getTwitterOAuthToken(),userSettings.getTwitterOAuthTokenSecret(),statusUpdate);
+		}
 		finish();
 	}
 

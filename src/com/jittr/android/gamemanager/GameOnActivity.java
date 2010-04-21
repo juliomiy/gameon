@@ -4,6 +4,13 @@ import android.app.Activity;
 
 public class GameOnActivity extends Activity {
 
+	public static GameManagerApplication appObject;
+	
+	/*static {
+		appObject = (GameManagerApplication) getApplication();
+		
+	}
+	*/
 	public GameOnActivity() {
 		super();
 	}

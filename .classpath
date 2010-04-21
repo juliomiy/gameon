@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="/Task Manager Week 3"/>
 	<classpathentry kind="lib" path="/Users/juliomiyares/Documents/workspace/Gameon/libs/signpost-core-1.2.1.1.jar"/>
 	<classpathentry kind="lib" path="/Users/juliomiyares/Documents/workspace/Gameon/libs/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/juliomiyares/Documents/workspace/Gameon/libs/twitter4j-core-2.1.2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

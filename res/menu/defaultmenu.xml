@@ -7,6 +7,9 @@
      <item android:id="@+id/testOAuth"
           android:title="Test OAuth"
      />
-     <item android:id="@+id/quit"
+     <item android:id="@+id/testTwitterStatus"
+           android:title="tweet"
+          />
+      <item android:id="@+id/quit"
           android:title="Quit" />
  </menu>

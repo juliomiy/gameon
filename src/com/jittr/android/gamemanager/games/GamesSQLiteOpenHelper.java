@@ -30,6 +30,10 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String GAME_TWITTER_DEFAULT="twitterDefault";
 	public static final String GAME_FACEBOOK_DEFAULT="facebookDefault";
     public static final String GAME_FOURSQUARE_DEFAULT="foursquareDefault";
+	public static final String GAME_TWITTER_OAUTH_TOKEN = "twitterOAuthToken";
+	public static final String GAME_TWITTER_OAUTH_TOKEN_SECRET = "twitterOAuthTokenSecret";
+	public static final String GAME_FOURSQUARE_OAUTH_TOKEN = "foursquareOAuthToken";
+	public static final String GAME_FOURSQUARE_OAUTH_TOKEN_SECRET = "foursquareOAuthTokenSecret";
 	
 	public GamesSQLiteOpenHelper(Context context) {
 		super(context, DB_NAME, null, VERSION);
@@ -91,6 +95,10 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
 				" twitterDefault text not null default 'false'," +
 				" facebookDefault text not null default 'false'," +
 				" foursquareDefault text not null default 'false'," +
+				" twitterOAuthToken text null," +
+				" twitterOAuthTokenSecret text null," +
+				" foursquareOAuthToken text null," +
+				" foursquareOAuthTokenSecret text null," +
 				" lastSync datetime null," +
 				" createdDate timestamp not null default CURRENT_TIMESTAMP," +
 				" modifiedDate timestamp null " +
@@ -110,9 +118,13 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
 		//insert to go_userSettings
 		values=new ContentValues();
 		values.put(GamesSQLiteOpenHelper.GAME_USER_ID, id);
-		values.put(GamesSQLiteOpenHelper.GAME_TWITTER, "juliomiy");
+		values.put(GamesSQLiteOpenHelper.GAME_TWITTER, "jittr");
 		values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK, "juliomiyares@mac.com");
 		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE,"9173702880");
+		values.put(GamesSQLiteOpenHelper.GAME_TWITTER_OAUTH_TOKEN,"14435178-dXMgVRh8wqilUreG0MnAgnIl4KCzmAUcHPc86D1xQ");
+		values.put(GamesSQLiteOpenHelper.GAME_TWITTER_OAUTH_TOKEN_SECRET,"kImpX2ehnB0fL8fwOE8J7K4JndBOp6GkgX5P2DEWM");
+		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE_OAUTH_TOKEN,"EWTX3VMPHMOLREMDM4M2KJH2GLDNFQLNLKHRYZFV4WW1SFQZ");
+		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE_OAUTH_TOKEN_SECRET,"C0V4C5Q12ZZI341SMY5VU0UKE5MV4YZPBWVBMSB3FVGJERNQ");
 		db.insert(GamesSQLiteOpenHelper.GAME_USER_SETTINGS_TABLE, null, values);
 	} //setDefaultSettings
 }

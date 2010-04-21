@@ -11,11 +11,40 @@ private String foursquare;//=null; //"9173702880";
 private boolean defaultTwitter; //=true;
 private boolean defaultFacebook;//=false;
 private boolean defaultFoursquare;//=false;
+private String  twitterOAuthToken;
+private String  twitterOAuthTokenSecret;
+private String  foursquareOAuthToken;
+private String  foursquareOAuthTokenSecret;
+
 public int getUserID() {
 	return userID;
 }
 public void setUserID(int userID) {
 	this.userID = userID;
+}
+public String getTwitterOAuthToken() {
+	return twitterOAuthToken;
+}
+public void setTwitterOAuthToken(String twitterOAuthToken) {
+	this.twitterOAuthToken = twitterOAuthToken;
+}
+public String getTwitterOAuthTokenSecret() {
+	return twitterOAuthTokenSecret;
+}
+public void setTwitterOAuthTokenSecret(String twitterOAuthTokenSecret) {
+	this.twitterOAuthTokenSecret = twitterOAuthTokenSecret;
+}
+public String getFoursquareOAuthToken() {
+	return foursquareOAuthToken;
+}
+public void setFoursquareOAuthToken(String foursquareOAuthToken) {
+	this.foursquareOAuthToken = foursquareOAuthToken;
+}
+public String getFoursquareOAuthTokenSecret() {
+	return foursquareOAuthTokenSecret;
+}
+public void setFoursquareOAuthTokenSecret(String foursquareOAuthTokenSecret) {
+	this.foursquareOAuthTokenSecret = foursquareOAuthTokenSecret;
 }
 public String getTwitter() {
 	return this.twitter;

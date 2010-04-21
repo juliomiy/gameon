@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Application;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -14,6 +15,7 @@ import  com.jittr.android.webservicexml.GameOnAPIs;
 
 public class GameManagerApplication extends Application {
 
+	public static Context appContext;
 	private SQLiteDatabase database;
 	private ArrayList<Game> currentGames;
 	private ArrayList<Game> publicGames;
@@ -23,6 +25,7 @@ public class GameManagerApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		appContext = this;
 		GamesSQLiteOpenHelper helper = new GamesSQLiteOpenHelper(this);
 		database = helper.getWritableDatabase();
 		if (null == currentGames) {
@@ -118,7 +121,7 @@ public class GameManagerApplication extends Application {
 	 */
 	public GameUserSettings getGameUserSettings() {
 	 //   String tableFields[]= {GamesSQLiteOpenHelper.GAME_FACEBOOK,GamesSQLiteOpenHelper.GAME_TWITTER,GamesSQLiteOpenHelper.GAME_FOURSQUARE,GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT, GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, GamesSQLiteOpenHelper.GAME_FOURSQUARE_DEFAULT};
-	    Cursor tasksCursor = database.query(GamesSQLiteOpenHelper.GAME_USER_SETTINGS_TABLE, new String[] {GamesSQLiteOpenHelper.GAME_FACEBOOK,GamesSQLiteOpenHelper.GAME_TWITTER,GamesSQLiteOpenHelper.GAME_FOURSQUARE,GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT, GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, GamesSQLiteOpenHelper.GAME_FOURSQUARE_DEFAULT},  null, null, null, null, null);
+	    Cursor tasksCursor = database.query(GamesSQLiteOpenHelper.GAME_USER_SETTINGS_TABLE, new String[] {GamesSQLiteOpenHelper.GAME_FACEBOOK,GamesSQLiteOpenHelper.GAME_TWITTER,GamesSQLiteOpenHelper.GAME_FOURSQUARE,GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT, GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, GamesSQLiteOpenHelper.GAME_FOURSQUARE_DEFAULT,GamesSQLiteOpenHelper.GAME_TWITTER_OAUTH_TOKEN,GamesSQLiteOpenHelper.GAME_TWITTER_OAUTH_TOKEN_SECRET},  null, null, null, null, null);
 		tasksCursor.moveToFirst();
 		if (! tasksCursor.isAfterLast()) {
 			userSettings = new GameUserSettings();
@@ -128,7 +131,9 @@ public class GameManagerApplication extends Application {
 				userSettings.setDefaultFacebook(Boolean.parseBoolean(tasksCursor.getString(3)));	
 	             userSettings.setDefaultTwitter(Boolean.parseBoolean(tasksCursor.getString(4)));
 	             userSettings.setDefaultFoursquare(Boolean.parseBoolean(tasksCursor.getString(5)));
-                 userSettings.setFacebook(tasksCursor.getString(0));
+	             userSettings.setTwitterOAuthToken(tasksCursor.getString(6));
+	             userSettings.setTwitterOAuthTokenSecret(tasksCursor.getString(7));
+	             userSettings.setFacebook(tasksCursor.getString(0));
                  userSettings.setTwitter(tasksCursor.getString(1));
                  userSettings.setFoursquare(tasksCursor.getString(2));
     		} while (tasksCursor.moveToNext());
