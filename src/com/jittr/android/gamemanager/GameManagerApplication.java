@@ -57,9 +57,13 @@ public class GameManagerApplication extends Application {
 	}
 	
 	/* Add Game to Database and to list */
-	/*TODO - deal with possible error situation instead of assuming the insert was ok and the new Game ID returned
-	 * 
-	 */
+	/*This is an involved function as a controller - for the add game to be successful , the game needs to be added to the db on the device, the listactivity
+	 * datasource that the user sees as well as the central database on the remote host. The order of risk for each of those steps least to most is
+	 *      add to listactivity
+	 *      add to sqlite local storage
+	 *      add to remote host
+	 *That is also the order from least to most time that each transaction takes to complete. Though atomicity is required , it can not be guaranteed without a lot of code * 
+	 * TODO - add webservice to add game to local host*/
 	public void addGame(Game t) {
 		assert(null != t);
 		

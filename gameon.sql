@@ -12,6 +12,55 @@ DELIMITER //
 
 use jittrgameon
 //
+drop table if exists go_user
+//
+/* master table for users - very little extra information about user outside of what they volunteer when they 
+ * authenticate with one of the large social networks.
+ * The purpose of the record for each user in go_user is to tie all of the other user records together without having to
+ * have an unwieldy massively denormalized table 
+ * Will have to build application logic in case somewhere wipes away their simple identifer and re-ups , 
+ * should all of the social networks supported credentials be viewed as unqiue ? I believe so making it easier to fine someone
+ * who has had the master record deleted.
+ * Does it make sense to have a master record with no defined social network crendentials? Not much sense or utility especially if gameon does not
+ * define its own social network functionality. 
+ */
+create table go_user (
+      userID integer primary key autoincrement not null,
+      userName text not null default 'Julio',
+      bankBalance float not null default 0,
+      createdDate timestamp not null default CURRENT_TIMESTAMP,
+      modifiedDate timestamp null
+)
+ENGINE=INNODB
+//
+/* social netwrk attributes for a particular user
+ * no new social network envisioned as part of GameOn but leveraging existing 
+ * large engagement sites. Foursquare include because of it's evolving role in
+ * location services
+ * TODO - should we include AOL Settings - AIM ID? 
+ */
+drop table if exists go_userSettings
+//
+create table go_userSettings
+(
+    userID integer primary key not null,
+    foursquare text null,
+    twitter text null,
+    facebook text null,
+    twitterDefault text not null default 'false',
+	facebookDefault text not null default 'false',
+	foursquareDefault text not null default 'false',
+	twitterOAuthToken text null,
+	twitterOAuthTokenSecret text null,
+	foursquareOAuthToken text null,
+	foursquareOAuthTokenSecret text null,
+	lastSync datetime null,
+	createdDate timestamp not null default CURRENT_TIMESTAMP,
+	modifiedDate timestamp null 
+)
+ENGiNE=INNODB
+//
+	
 /* listings of all games public and user defined */
 /* if the game is a public game, will have a reference to the Master in go_publicgames*/
 drop table if exists go_games
