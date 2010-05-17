@@ -35,6 +35,7 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String GAME_FOURSQUARE_OAUTH_TOKEN = "foursquareOAuthToken";
 	public static final String GAME_FOURSQUARE_OAUTH_TOKEN_SECRET = "foursquareOAuthTokenSecret";
 	
+	public static final long SQLITE_INSERT_ERROR = -1;
 	public GamesSQLiteOpenHelper(Context context) {
 		super(context, DB_NAME, null, VERSION);
 	}

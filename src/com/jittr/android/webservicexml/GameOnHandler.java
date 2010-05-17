@@ -1,12 +1,20 @@
 package com.jittr.android.webservicexml;
 
+import java.util.ArrayList;
+
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public abstract class GameOnHandler extends DefaultHandler {
+import com.jittr.android.gamemanager.games.Game;
+
+public abstract class GameOnHandler<LISTOBJECT> extends DefaultHandler {
 	
 	protected StringBuilder builder;
+	private ArrayList<LISTOBJECT> listOfObjects;
 	
+	public ArrayList<LISTOBJECT> getList() {
+		return this.listOfObjects;
+	}
 	public void setStringBuilder(StringBuilder sb) {
 		this.builder = sb;
 	}

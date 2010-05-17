@@ -7,14 +7,18 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
+import static com.jittr.android.gamemanager.GameOnGlobalConstants.*;
 import com.jittr.android.gamemanager.games.Game;
+import static com.jittr.android.gamemanager.games.GamesSQLiteOpenHelper.*;
 import com.jittr.android.gamemanager.games.GamesSQLiteOpenHelper;
-import com.jittr.android.webservicexml.foursquare.SaxFeedParser;
+//import com.jittr.android.webservicexml.foursquare.SaxFeedParser;
+import com.jittr.android.webservicexml.GOWebServiceAPIException;
 import  com.jittr.android.webservicexml.GameOnAPIs;
+import com.jittr.android.webservicexml.SaxFeedParser;
 
 public class GameManagerApplication extends Application {
 
+	private static final String TAG = "GameManagerAppliation";
 	public static Context appContext;
 	private SQLiteDatabase database;
 	private ArrayList<Game> currentGames;
@@ -63,21 +67,30 @@ public class GameManagerApplication extends Application {
 	 *      add to sqlite local storage
 	 *      add to remote host
 	 *That is also the order from least to most time that each transaction takes to complete. Though atomicity is required , it can not be guaranteed without a lot of code * 
-	 * TODO - add webservice to add game to local host*/
-	public void addGame(Game t) {
-		assert(null != t);
+	 * TODO - add webservice to add game to local host
+	 * Deal with RowID/GameID and uniqueness throughout*/
+	public long addGame(Game game) {
+		assert(null != game);
+		long rowID=-1;
 		
 		ContentValues values = new ContentValues();
-		values.put(GamesSQLiteOpenHelper.GAME_NAME, t.getName());
-		values.put(GamesSQLiteOpenHelper.GAME_COMPLETE, Boolean.toString(t.isComplete()));
-        values.put(GamesSQLiteOpenHelper.GAME_TYPE, t.getType());
-        values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK,t.getFacebookNetwork());
-        values.put(GamesSQLiteOpenHelper.GAME_TWITTER,t.getTwitterNetwork());
-        values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE,t.getFoursquareNetwork());
-
-		t.setId(database.insert(GamesSQLiteOpenHelper.GAME_TABLE, null, values));
-
-		currentGames.add(t);  //Add inserted game to internal list
+		values.put(GamesSQLiteOpenHelper.GAME_NAME, game.getName());
+		values.put(GamesSQLiteOpenHelper.GAME_COMPLETE, Boolean.toString(game.isComplete()));
+        values.put(GamesSQLiteOpenHelper.GAME_TYPE, game.getType());
+        values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK,game.getFacebookNetwork());
+        values.put(GamesSQLiteOpenHelper.GAME_TWITTER,game.getTwitterNetwork());
+        values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE,game.getFoursquareNetwork());
+        /* Save Game to local handset storage*/
+		rowID = database.insert(GamesSQLiteOpenHelper.GAME_TABLE, null, values);
+		if (rowID != SQLITE_INSERT_ERROR) {
+            game.setId(rowID);
+            long responseCode;
+            if ((responseCode = GameOnMasterAPI.insertGame(game)) == GAMEON_API_SUCCESS) {
+		      /* Save game to internal List*/
+		        currentGames.add(game);  //Add inserted game to internal list
+            } //if
+		} //if
+		return rowID;
 	}
 	
 	/* Table go_game
@@ -180,14 +193,35 @@ public class GameManagerApplication extends Application {
 		
 		tasksCursor.close();
 	}  //loadGames
+/* Calls webservice to retrieve public Games
+ * Input parameter used to select by Type- if empty , returns all
+ * The return is in XML which is parsed and stored in Game objects of Game Class and in ArrayList
+ * TODO - add selection parameters to date , type etc
+ * TODO - url Encode the parameter(s) - some confusion around right way to do this within java
+ * 
+ */
+	private void loadPublicGames(String sport) {
+		
+		String urlString = (sport != null) ? "http://jittr.com/jittr/gameon/go_getpublicgames.php?"+sport : "http://jittr.com/jittr/go_games.php ";
+		
+//		SaxFeedParser parser = new SaxFeedParser(GameOnAPIs.GO_PUBLIC_GAMES,urlString);
+		SaxFeedParser parser;
+		try {
+			parser = new SaxFeedParser<Game>(GameOnAPIs.GO_PUBLIC_GAMES,urlString);
+			publicGames = parser.parse();
+		} catch (GOWebServiceAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-	private void loadPublicGames() {
-		SaxFeedParser parser = new SaxFeedParser(GameOnAPIs.GO_PUBLIC_GAMES,"http://juliomiyares.com/go_games.php");
-		publicGames = parser.parse();
+		
 		/*publicGames = new ArrayList<Game>();
 		Game t = new Game("Test using loadPublic Games");
 		t.setId(5);
 		t.setName("Test using loadPublic Game");
 	    publicGames.add(t);	*/
+	}
+	private void loadPublicGames() {
+         loadPublicGames(null);		
 	}
 }

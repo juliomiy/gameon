@@ -1,11 +1,17 @@
 package com.jittr.android.webservicexml.foursquare;
 
-import static com.jittr.android.webservicexml.BaseFeedParser.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 public class FQUserAPI extends FourSquareHandler {
-	
+	public static final String FSID="id";
+    public static final String FSUSER="user";
+    public static final String FSFIRSTNAME="firstname";
+    public static final String FSLASTNAME="lastname";
+    public static final String FSPHOTO="photo";
+    public static final String FSEMAIL="email";
+    public static final String FSTWITTER = "twitter";
+    public static final String FSFACEBOOK = "facebook";
 	@Override
 	public void startElement(String uri, String localName, String name,
 			Attributes attributes) throws SAXException {

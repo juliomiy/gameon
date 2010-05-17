@@ -7,13 +7,21 @@ import org.xml.sax.SAXException;
 import com.jittr.android.gamemanager.games.Game;
 import com.jittr.android.webservicexml.GameOnHandler;
 
-public final class GOPublicGamesAPI extends GameOnHandler {
+/* Final Handler for the WebService API */
+/* Each webservice API will have a class such as this that captures the xml elements and stores in the appropriate 
+ * class object
+ */
+public final class GOPublicGamesAPI<LISTOBJECT> extends GameOnHandler {
 
-	protected ArrayList<Game> games;
+	protected ArrayList games;
 	protected Game currentGame;
 	
-	public ArrayList<Game> getGames() {
+	/*public ArrayList<Game> getGames() {
 		return this.games;
+	}
+	*/
+	public void GoPublicGamesAPI() {
+	    	//super<LISTOBJECT>();
 	}
 	
 	@Override
@@ -63,7 +71,7 @@ public final class GOPublicGamesAPI extends GameOnHandler {
 	@Override
 	public void startDocument() throws SAXException {
 		    super.startDocument();
-			games = new ArrayList<Game>();
+			this.games = new ArrayList<LISTOBJECT>();
 			this.setStringBuilder(new StringBuilder());
 	}	  //startDocument
 }  //class
