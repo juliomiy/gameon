@@ -39,6 +39,11 @@ public class Game extends baseTablePojo implements Parcelable {
 	private String foursquareNetwork;
 	private boolean complete;
     private int visibility;
+	private String createdByUserName;
+	private int createdByUserID;
+	private int wagerType;
+	private int wagerUnits;
+	private String subscribeCloseDate;
   
    
     public Game() {
@@ -79,7 +84,11 @@ public class Game extends baseTablePojo implements Parcelable {
 	   facebookNetwork = in.readString();
 	   twitterNetwork = in.readString();
 	   foursquareNetwork = in.readString();
-	  // in.read
+	   createdByUserName=in.readString();
+	   createdByUserID=in.readInt();
+	   wagerType=in.readInt();
+	   wagerUnits=in.readInt();
+	   // in.read
 	   //complete=in.readBooleanArray(null);
 	   visibility=in.readInt();
 	   this.setCreatedDate(in.readString());
@@ -100,19 +109,57 @@ public class Game extends baseTablePojo implements Parcelable {
 	    in.writeString(facebookNetwork);
 	    in.writeString(twitterNetwork);
         in.writeString(foursquareNetwork);
+        in.writeString(createdByUserName);
+        in.writeInt(createdByUserID);
+        in.writeInt(wagerType);
+        in.writeInt(wagerUnits);
 	}
 	public Game(String taskName) {
 		title = taskName;
 	}
-
+	public int getCreatedByUserID() {
+		return this.createdByUserID;
+	}
+	public String getCreatedByUserName() {
+		return this.createdByUserName;
+	}
 	public String getDescription() {
 		return description;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+	
+	public int getWagerUnits() {
+		return wagerUnits;
+	}
+	public void setWagerUnits(int wagerUnits) {
+		this.wagerUnits = wagerUnits;
+	}
+	public String getSubscribeCloseDate() {
+		return subscribeCloseDate;
+	}
+	public void setSubscribeCloseDate(String subscribeCloseDate) {
+		this.subscribeCloseDate = subscribeCloseDate;
+	}
+	public int getWagerType() {
+		return wagerType;
+	}
+	public void setCreatedByID(int createdByUserID) {
+		this.createdByUserID = createdByUserID;
+	}
+	public void setCreatedByUserName(String createdByUserName) {
+		this.createdByUserName = createdByUserName;
 	}
 	public String getFacebookNetwork() {
 		return facebookNetwork;
 	}
 	public String getTwitterNetwork() {
 		return twitterNetwork;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public void setTwitterNetwork(String twitterNetwork) {
 		this.twitterNetwork = twitterNetwork;
@@ -175,6 +222,10 @@ public class Game extends baseTablePojo implements Parcelable {
 		this.id = id;
 	}
 
+	public void setWagerType(int in) {
+		wagerType = in;
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -230,6 +281,7 @@ public class Game extends baseTablePojo implements Parcelable {
 				+ ", getCreatedDate()=" + getCreatedDate()
 				+ ", getModifiedDate()=" + getModifiedDate() + "]";
 	}
+
 
 
 }

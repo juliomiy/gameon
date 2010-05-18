@@ -14,13 +14,12 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.jittr.android.gamemanager.GameOnGlobalConstants;
 
-//TODO = for user/manually entered game, need to trigger a customize activity
+/* Add Game Activity - can either choose a public game or define your own game. 
+ * Customization activity is invoked for both before saving 
+ */
 public class AddGameActivity extends GameOnActivity {
-	
-	public static final int REQUEST_CHOOSE_PUBLIC_GAME = 0;
-	public static final int CUSTOMIZE_PUBLIC_GAME = 1;
-	
 	private EditText gameNameEditText;
 	private Button addButton;
 	private Button cancelButton;
@@ -29,12 +28,15 @@ public class AddGameActivity extends GameOnActivity {
 	private AlertDialog unsavedChangesDialog;
 	private GameUserSettings userSettings;
 	private Game game;
-
+    private Game publicGame;
+    private static final String TAG="AddGameActivity";
+    
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_game);
         setUpViews();
+        /*TODO instantiate userSettings Object */
     }
 
 	@Override
@@ -47,11 +49,19 @@ public class AddGameActivity extends GameOnActivity {
 	//	adapter.forceReload();
 	}
 	
-	protected void addGame() {
-		String gameName = gameNameEditText.getText().toString();
-		//Game g = new Game(gameName);
+	/* Add Game to persistent data stores - this is called after creation and customization of the Game */
+	protected void addGame(Game game) {
+	/* Temporary code */
+		if (game == null) {
+		   game = new Game();
+		   game.setName(gameNameEditText.getText().toString());
+		   game.setCreatedByUserName("temp");
+		   game.setCreatedByID(1);
+		   game.setWagerType(1);
+		   //customizeGame(GameOnGlobalConstants.CUSTOMIZE_USERDEFINED_GAME,game);
+		 }
+		/* End temporary code */
 		getStuffApplication().addGame(game);
-		//game.
 		if (game.getTwitterNetwork() != null) {
 			userSettings = getStuffApplication().getGameUserSettings();
 			TwitterAPIs twitter = new TwitterAPIs();
@@ -61,25 +71,39 @@ public class AddGameActivity extends GameOnActivity {
 		finish();
 	}
 
+	/* Fire up the customize screen - if user customizes and commits, returns true and the game is saved. If the user chooses cancel
+	 * game is not save. This function solely fires the appropriate intent. The onActivityResult will determine further action based on 
+	 * user selection  */
+	private void customizeGame(int activityType,Game game) {
+		Intent intent = new Intent(AddGameActivity.this, CustomizePublicGameActivity.class);
+  		intent.putExtra(CUSTOMIZE_GAME,game);
+  		startActivityForResult(intent,activityType);
+	}
+	/* invoke webservice to display list of public games */
 	public void viewPublicGameClicked(View view) {
 		Intent intent = new Intent(AddGameActivity.this, ViewPublicGameActivity.class);
-		startActivityForResult(intent,REQUEST_CHOOSE_PUBLIC_GAME);
+		startActivityForResult(intent,GameOnGlobalConstants.REQUEST_CHOOSE_PUBLIC_GAME);
 	} //viewPublicGameActivity
 
+	/* process return from invoking Select public game or customization of game
+	 */
 	@Override
 	public void onActivityResult(int requestCode,int resultCode, Intent data) {
 
-		if (REQUEST_CHOOSE_PUBLIC_GAME == requestCode && RESULT_OK == resultCode) {
-			game = data.getParcelableExtra(ViewPublicGameActivity.PUBLIC_GAME_RESULT);
+		if (GameOnGlobalConstants.REQUEST_CHOOSE_PUBLIC_GAME == requestCode && RESULT_OK == resultCode) {
+			publicGame = data.getParcelableExtra(ViewPublicGameActivity.PUBLIC_GAME_RESULT);
 			/* allow user to customize the game, choose who they are backing */
-            if (game != null) {
+            if (publicGame != null) {
         		Intent intent = new Intent(AddGameActivity.this, CustomizePublicGameActivity.class);
-        		intent.putExtra(CUSTOMIZE_GAME,game);
-        		startActivityForResult(intent,CUSTOMIZE_PUBLIC_GAME);
+        		intent.putExtra(CUSTOMIZE_GAME,publicGame);
+        		startActivityForResult(intent,GameOnGlobalConstants.CUSTOMIZE_PUBLIC_GAME);
             }
-		} else if (CUSTOMIZE_PUBLIC_GAME == requestCode && RESULT_OK == resultCode) {
-			    game = data.getParcelableExtra(CustomizePublicGameActivity.CUSTOMIZE_GAME);
-		} else {
+		} else if (GameOnGlobalConstants.CUSTOMIZE_PUBLIC_GAME == requestCode && RESULT_OK == resultCode) {
+			    publicGame = data.getParcelableExtra(CustomizePublicGameActivity.CUSTOMIZE_GAME);
+		} else if (GameOnGlobalConstants.CUSTOMIZE_USERDEFINED_GAME == requestCode && RESULT_OK == resultCode) {
+		        game = data.getParcelableExtra(CustomizePublicGameActivity.CUSTOMIZE_GAME);
+		        addGame(game);
+		} else    { 
 			super.onActivityResult(requestCode,resultCode,data);
 		}
 	} //onActivityResult
@@ -91,7 +115,7 @@ public class AddGameActivity extends GameOnActivity {
 				.setMessage(R.string.unsaved_changes_message)
 				.setPositiveButton(R.string.add_game, new AlertDialog.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						addGame();
+						addGame(null);
 					}
 				})
 				.setNeutralButton(R.string.discard, new AlertDialog.OnClickListener() {
@@ -120,15 +144,14 @@ public class AddGameActivity extends GameOnActivity {
 		viewPublicButton.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				//Intent intent = new Intent(AddGameActivity.this, ViewPublicGameActivity.class);
-				//startActivity(intent);
-
-			   viewPublicGameClicked(v);	
+				   viewPublicGameClicked(v);	
 			}
 		});
 		addButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				addGame();
+				game = new Game(gameNameEditText.getText().toString());
+			    customizeGame(GameOnGlobalConstants.CUSTOMIZE_USERDEFINED_GAME,game);
+				//addGame(null);
 			}
 		});
 		cancelButton.setOnClickListener(new View.OnClickListener() {

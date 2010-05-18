@@ -28,11 +28,11 @@ public class UpdateUserSettingsActivity extends GameOnActivity {
     } //onCreateBundle
 
 	protected void saveSettings(View v) {
-		userSettings.setFacebook(facebookEditText.getText().toString());
-		userSettings.setTwitter(twitterEditText.getText().toString());
-		userSettings.setFoursquare(foursquareEditText.getText().toString());
-        userSettings.setDefaultFacebook(facebookCheckBox.isChecked());
-        userSettings.setDefaultTwitter(twitterCheckBox.isChecked());
+		userSettings.setFacebookID(facebookEditText.getText().toString());
+		userSettings.setTwitterID(twitterEditText.getText().toString());
+		userSettings.setFoursquareID(foursquareEditText.getText().toString());
+        userSettings.setFacebookDefault(facebookCheckBox.isChecked());
+        userSettings.setTwitterDefault(twitterCheckBox.isChecked());
         
 		getStuffApplication().saveSettings(userSettings);
 		finish();
@@ -48,11 +48,11 @@ public class UpdateUserSettingsActivity extends GameOnActivity {
 		cancelButton=(Button)findViewById(R.id.cancelsettings);
 		
 	  //  userSettings = new GameUserSettings();
-		twitterEditText.setText(userSettings.getTwitter());
-		facebookEditText.setText(userSettings.getFacebook());
-		foursquareEditText.setText(userSettings.getFoursquare());
-		twitterCheckBox.setChecked(userSettings.isDefaultTwitter());
-		facebookCheckBox.setChecked(userSettings.isDefaultFacebook());
+		twitterEditText.setText(userSettings.getTwitterID());
+		facebookEditText.setText(userSettings.getFacebookID());
+		foursquareEditText.setText(userSettings.getFoursquareID());
+		twitterCheckBox.setChecked(userSettings.isTwitterDefault());
+		facebookCheckBox.setChecked(userSettings.isFacebookDefault());
 		
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {

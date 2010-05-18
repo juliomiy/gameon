@@ -118,12 +118,12 @@ public class GameManagerApplication extends Application {
 	public void saveSettings(GameUserSettings settings) {
 		assert(null != settings);
 		ContentValues values = new ContentValues();
-		values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK, settings.getFacebook());
-		values.put(GamesSQLiteOpenHelper.GAME_TWITTER, settings.getTwitter());
-		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE, settings.getFoursquare());
-		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE_DEFAULT, settings.isDefaultFoursquare());
-		values.put(GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, Boolean.toString( settings.isDefaultTwitter()));
-		values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT,Boolean.toString(settings.isDefaultFacebook()));
+		values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK, settings.getFacebookID());
+		values.put(GamesSQLiteOpenHelper.GAME_TWITTER, settings.getTwitterID());
+		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE, settings.getFoursquareID());
+		values.put(GamesSQLiteOpenHelper.GAME_FOURSQUARE_DEFAULT, settings.isFoursquareDefault());
+		values.put(GamesSQLiteOpenHelper.GAME_TWITTER_DEFAULT, Boolean.toString( settings.isTwitterDefault()));
+		values.put(GamesSQLiteOpenHelper.GAME_FACEBOOK_DEFAULT,Boolean.toString(settings.isFacebookDefault()));
 		
 		values.put(GamesSQLiteOpenHelper.GAME_MODIFIEDDATE, settings.getModifiedDate());
 		long id = settings.getUserID();
@@ -145,14 +145,14 @@ public class GameManagerApplication extends Application {
 			do {
                // String bool = tasksCursor.getString(3);
                // if (bool == "1" || bool == "true" ) userSettings.setDefaultFacebook(true);
-				userSettings.setDefaultFacebook(Boolean.parseBoolean(tasksCursor.getString(3)));	
-	             userSettings.setDefaultTwitter(Boolean.parseBoolean(tasksCursor.getString(4)));
-	             userSettings.setDefaultFoursquare(Boolean.parseBoolean(tasksCursor.getString(5)));
+				userSettings.setFacebookDefault(Boolean.parseBoolean(tasksCursor.getString(3)));	
+	             userSettings.setTwitterDefault(Boolean.parseBoolean(tasksCursor.getString(4)));
+	             userSettings.setFoursquareDefault(Boolean.parseBoolean(tasksCursor.getString(5)));
 	             userSettings.setTwitterOAuthToken(tasksCursor.getString(6));
 	             userSettings.setTwitterOAuthTokenSecret(tasksCursor.getString(7));
-	             userSettings.setFacebook(tasksCursor.getString(0));
-                 userSettings.setTwitter(tasksCursor.getString(1));
-                 userSettings.setFoursquare(tasksCursor.getString(2));
+	             userSettings.setFacebookID(tasksCursor.getString(0));
+                 userSettings.setTwitterID(tasksCursor.getString(1));
+                 userSettings.setFoursquareID(tasksCursor.getString(2));
     		} while (tasksCursor.moveToNext());
 		} //if
 		tasksCursor.close();

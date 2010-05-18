@@ -1,18 +1,23 @@
 package com.jittr.android.gamemanager;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
 //TODO - make it implement Parcelable
-public class GameUserSettings extends baseTablePojo  {
-private int userID=1;
-private String twitter; //= null; //"juliomiy";
-private String facebook; //=null; //"juliomiyares@mac.com";
-private String foursquare;//=null; //"9173702880";
-private boolean defaultTwitter; //=true;
-private boolean defaultFacebook;//=false;
-private boolean defaultFoursquare;//=false;
+public class GameUserSettings extends baseTablePojo implements Parcelable  {
+private int userID;
+private String twitterID; //= null; //"juliomiy";
+private String facebookID; //=null; //"juliomiyares@mac.com";
+private String foursquareID;//=null; //"9173702880";
+private String aimID;
+private String icqID;
+private boolean twitterDefault; //=true;
+private boolean facebookDefault;//=false;
+private boolean foursquareDefault;//=false;
 private String  twitterOAuthToken;
 private String  twitterOAuthTokenSecret;
+private String  facebookOAuthToken;
+private String  facebookOAuthTokenSecret;
 private String  foursquareOAuthToken;
 private String  foursquareOAuthTokenSecret;
 
@@ -21,6 +26,66 @@ public int getUserID() {
 }
 public void setUserID(int userID) {
 	this.userID = userID;
+}
+public String getTwitterID() {
+	return twitterID;
+}
+public void setTwitterID(String twitterID) {
+	this.twitterID = twitterID;
+}
+public String getFacebookID() {
+	return facebookID;
+}
+public void setFacebookID(String facebookID) {
+	this.facebookID = facebookID;
+}
+public String getFoursquareID() {
+	return foursquareID;
+}
+public void setFoursquareID(String foursquareID) {
+	this.foursquareID = foursquareID;
+}
+public String getAimID() {
+	return aimID;
+}
+public void setAimID(String aimID) {
+	this.aimID = aimID;
+}
+public String getIcqID() {
+	return icqID;
+}
+public void setIcqID(String icqID) {
+	this.icqID = icqID;
+}
+public boolean isTwitterDefault() {
+	return twitterDefault;
+}
+public void setTwitterDefault(boolean twitterDefault) {
+	this.twitterDefault = twitterDefault;
+}
+public boolean isFacebookDefault() {
+	return facebookDefault;
+}
+public void setFacebookDefault(boolean facebookDefault) {
+	this.facebookDefault = facebookDefault;
+}
+public boolean isFoursquareDefault() {
+	return foursquareDefault;
+}
+public void setFoursquareDefault(boolean foursquareDefault) {
+	this.foursquareDefault = foursquareDefault;
+}
+public String getFacebookOAuthToken() {
+	return facebookOAuthToken;
+}
+public void setFacebookOAuthToken(String facebookOAuthToken) {
+	this.facebookOAuthToken = facebookOAuthToken;
+}
+public String getFacebookOAuthTokenSecret() {
+	return facebookOAuthTokenSecret;
+}
+public void setFacebookOAuthTokenSecret(String facebookOAuthTokenSecret) {
+	this.facebookOAuthTokenSecret = facebookOAuthTokenSecret;
 }
 public String getTwitterOAuthToken() {
 	return twitterOAuthToken;
@@ -46,45 +111,12 @@ public String getFoursquareOAuthTokenSecret() {
 public void setFoursquareOAuthTokenSecret(String foursquareOAuthTokenSecret) {
 	this.foursquareOAuthTokenSecret = foursquareOAuthTokenSecret;
 }
-public String getTwitter() {
-	return this.twitter;
+public int describeContents() {
+	// TODO Auto-generated method stub
+	return 0;
 }
-public void setTwitter(String twitter) {
-	this.twitter = twitter;
+public void writeToParcel(Parcel dest, int flags) {
+	// TODO Auto-generated method stub
+	
 }
-public String getFacebook() {
-	return this.facebook;
-}
-public void setFacebook(String facebook) {
-	this.facebook = facebook;
-}
-public String getFoursquare() {
-	return this.foursquare;
-}
-public void setFoursquare(String foursquare) {
-	this.foursquare = foursquare;
-}
-public boolean isDefaultTwitter() {
-	return this.defaultTwitter;
-}
-public void setDefaultTwitter(boolean defaultTwitter) {
-	this.defaultTwitter = defaultTwitter;
-}
-public boolean isDefaultFacebook() {
-	return this.defaultFacebook;
-}
-public void setDefaultFacebook(boolean defaultFacebook) {
-	this.defaultFacebook = defaultFacebook;
-}
-public boolean isDefaultFoursquare() {
-	return this.defaultFoursquare;
-}
-public void setDefaultFoursquare(boolean defaultFoursquare) {
-	this.defaultFoursquare = defaultFoursquare;
-}
-/*public String getModifiedDate() {
-    Timestamp ts = new Timestamp(System.currentTimeMillis());
-    return ts.toString();
-}
-*/
 } //class

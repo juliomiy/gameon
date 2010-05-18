@@ -23,9 +23,9 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String GAME_CREATEDDATE = "createdDate";
 	public static final String GAME_BANKBALANCE = "bankBalance";
 	public static final String GAME_USERNAME = "userName";
-	public static final String GAME_TWITTER = "twitter";
-	public static final String GAME_FACEBOOK = "facebook";
-	public static final String GAME_FOURSQUARE = "foursquare";
+	public static final String GAME_TWITTER = "twitterID";
+	public static final String GAME_FACEBOOK = "facebookID";
+	public static final String GAME_FOURSQUARE = "foursquareID";
 	public static final String GAME_USER_ID = "userID";
 	public static final String GAME_TWITTER_DEFAULT="twitterDefault";
 	public static final String GAME_FACEBOOK_DEFAULT="facebookDefault";
@@ -90,16 +90,21 @@ public class GamesSQLiteOpenHelper extends SQLiteOpenHelper {
 				");";
 		db.execSQL(sql);
 		sql = "create table go_userSettings(userID integer primary key not null," +
-                " foursquare text null," +
-		        " twitter text null," +
-		        " facebook text null," +
+                " foursquareID text null," +
+		        " twitterID text null," +
+		        " facebookID text null," +
+		        " aimID text null," +
+		        " icqID text null," +
 				" twitterDefault text not null default 'false'," +
 				" facebookDefault text not null default 'false'," +
+				" facebookImageUrl text null," +
 				" foursquareDefault text not null default 'false'," +
 				" twitterOAuthToken text null," +
 				" twitterOAuthTokenSecret text null," +
+				" twitterImageUrl text null," +
 				" foursquareOAuthToken text null," +
 				" foursquareOAuthTokenSecret text null," +
+				" foursquareImageUrl text null," +
 				" lastSync datetime null," +
 				" createdDate timestamp not null default CURRENT_TIMESTAMP," +
 				" modifiedDate timestamp null " +

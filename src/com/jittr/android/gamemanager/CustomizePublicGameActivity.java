@@ -53,9 +53,9 @@ public class CustomizePublicGameActivity extends Activity {
        }
      //  userSettings = getStuffApplication().getGameUserSettings();
        if (userSettings != null ) {
-          twitter.setChecked(userSettings.isDefaultTwitter());
-          facebook.setChecked(userSettings.isDefaultFacebook());
-          foursquare.setChecked(userSettings.isDefaultFoursquare());
+          twitter.setChecked(userSettings.isTwitterDefault());
+          facebook.setChecked(userSettings.isFacebookDefault());
+          foursquare.setChecked(userSettings.isFoursquareDefault());
        }
 	} //onResume
 	
@@ -99,7 +99,7 @@ public class CustomizePublicGameActivity extends Activity {
         facebook.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (((CheckBox)v).isChecked()) {
-					game.setFacebookNetwork(userSettings.getFacebook());
+					game.setFacebookNetwork(userSettings.getFacebookID());
 				}
 				else 
 					game.setFacebookNetwork("");
@@ -108,7 +108,7 @@ public class CustomizePublicGameActivity extends Activity {
         twitter.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (((CheckBox)v).isChecked()) {
-					game.setTwitterNetwork(userSettings.getTwitter());
+					game.setTwitterNetwork(userSettings.getTwitterID());
 				} else
 					game.setTwitterNetwork("");
 			}
@@ -116,7 +116,7 @@ public class CustomizePublicGameActivity extends Activity {
         foursquare.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (((CheckBox)v).isSelected()) {
-					game.setFoursquareNetwork(userSettings.getFoursquare());
+					game.setFoursquareNetwork(userSettings.getFoursquareID());
 				} else
 					game.setFoursquareNetwork("");
 			}
