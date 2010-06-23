@@ -1,7 +1,12 @@
-package com.jittr.android.gamemanager;
+package com.jittr.android.twitter;
 
 import java.sql.Date;
 
+import com.jittr.android.gamemanager.GameManagerApplication;
+import com.jittr.android.R;
+
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,18 +14,19 @@ import android.widget.Button;
 import com.jittr.android.gamemanager.GameOnOAuth;
 import com.jittr.android.webservice.TwitterAPIs;
 
-public class testTwitterStatusUpdateActivity extends GameOnActivity {
+public class testTwitterStatusUpdateActivity extends Activity {
 
-	private GameOnOAuth OAuth = new GameOnOAuth();
 	private String twitterStatusUpdate="this is a test of status update";
 	private Button cancelButton;
 	private Button testTwitterStatusUpdateButton;
-	private GameUserSettings userSettings;
-   
+	private Context context;
+	private GOTwitterWrapper twitter;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = GameManagerApplication.appContext;
+        twitter = new GOTwitterWrapper(context);
         setContentView(R.layout.testtwitterstatusupdate);
         setUpViews();
     }
@@ -50,14 +56,7 @@ public class testTwitterStatusUpdateActivity extends GameOnActivity {
 		});
 
 	}
-
 	protected void teststatusupdate() {
-		userSettings = getStuffApplication().getGameUserSettings();
-	    String OAuthToken=userSettings.getTwitterOAuthToken();
-		String OAuthTokenSecret=userSettings.getTwitterOAuthTokenSecret();
-		//	OAuth.sendTwitterUpdate(twitterStatusUpdate, OAuthToken, OAuthTokenSecret);
-    //		OAuth.sendTwitterUpdate(twitterStatusUpdate,userSettings.getTwitterOAuthToken(),userSettings.getTwitterOAuthTokenSecret());
-		TwitterAPIs testTwitterUpdate = new TwitterAPIs();
-		testTwitterUpdate.sendTwitterUpdate(OAuthToken, OAuthTokenSecret,"oauth update from Android " + System.currentTimeMillis());
+		twitter.sendTwitterUpdate("oauth update from Android " + System.currentTimeMillis());
 	}
 }

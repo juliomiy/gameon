@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import static com.jittr.android.gamemanager.GameOnGlobalConstants.*;
@@ -24,6 +25,7 @@ public class GameManagerApplication extends Application {
 	private ArrayList<Game> currentGames;
 	private ArrayList<Game> publicGames;
 	private GameUserSettings userSettings;
+	private GameOnProperties gameOnProperties;
 //	private SaxFeedParser p;
 	
 	@Override
@@ -32,10 +34,22 @@ public class GameManagerApplication extends Application {
 		appContext = this;
 		GamesSQLiteOpenHelper helper = new GamesSQLiteOpenHelper(this);
 		database = helper.getWritableDatabase();
+   /* check if this application has run before, if it hasn't - invoke the install/Configuration activity*/
+		gameOnProperties = new GameOnProperties(this);
+		if (gameOnProperties.firstRun()) {
+			gameOnInstallConfiguration();
+		}
 		if (null == currentGames) {
 			loadGames();
 		}
 	}
+
+	/* GameOn install and configuraiton for the firstRun */
+	private void gameOnInstallConfiguration() {
+		Intent intent = new Intent(this, GameOnInstallActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+    } //gameOnInstallConfiguration
 
 	@Override
 	public void onTerminate() {

@@ -1,7 +1,7 @@
 package com.jittr.android.gamemanager;
 
 import com.jittr.android.gamemanager.GameOnOAuth;
-
+import com.jittr.android.R;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;

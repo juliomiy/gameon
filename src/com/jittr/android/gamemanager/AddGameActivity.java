@@ -3,6 +3,7 @@ package com.jittr.android.gamemanager;
 import com.jittr.android.gamemanager.games.Game;
 import com.jittr.android.gamemanager.CustomizePublicGameActivity;
 import com.jittr.android.webservice.TwitterAPIs;
+import com.jittr.android.R;
 
 import static com.jittr.android.gamemanager.CustomizePublicGameActivity.*;
 import android.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,6 +92,7 @@ public class AddGameActivity extends GameOnActivity {
 	@Override
 	public void onActivityResult(int requestCode,int resultCode, Intent data) {
 
+		Log.d(TAG,"OnActivityResult - requestCode = " + requestCode + " ResultCode " + resultCode + " Data " + data);
 		if (GameOnGlobalConstants.REQUEST_CHOOSE_PUBLIC_GAME == requestCode && RESULT_OK == resultCode) {
 			publicGame = data.getParcelableExtra(ViewPublicGameActivity.PUBLIC_GAME_RESULT);
 			/* allow user to customize the game, choose who they are backing */

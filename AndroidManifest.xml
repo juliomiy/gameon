@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.jittr.android.gamemanager"
+      package="com.jittr.android"
       android:versionCode="1"
       android:versionName="1.0">
     <application 
+          android:theme="@style/Theme.GameOn"
           android:icon="@drawable/icon"
-          android:name=".GameManagerApplication"
+          android:name=".gamemanager.GameManagerApplication"
           android:label="@string/app_name"
           android:description="@string/app_description"
           android:debuggable="true">
-          <activity android:name=".ViewGamesActivity"
+          <activity android:name=".gamemanager.ViewGamesActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddGameActivity" 
+        <activity android:name=".gamemanager.AddGameActivity" 
                   android:text="@string/add_game">
                   <intent-filter>
     <action android:name="android.intent.action.VIEW" />
@@ -24,16 +25,19 @@
 
 </intent-filter> 
         </activity>
-        <activity android:name=".UpdateUserSettingsActivity" android:text="@string/update_user_settings">
+        <activity android:name=".gamemanager.UpdateUserSettingsActivity" android:text="@string/update_user_settings">
         <intent-filter>
     <action android:name="android.intent.action.VIEW" />
     <category android:name="android.intent.category.DEFAULT" />
    </intent-filter> 
 </activity>
-        <activity android:name=".ViewPublicGameActivity" android:text="@string/view_public_games" />
-        <activity android:name=".CustomizePublicGameActivity" android:text="@string/customize_public_game" />
-        <activity android:name=".testOAuthActivity" android:text="@string/test_oauth" />
-        <activity android:name=".testTwitterStatusUpdateActivity" android:text="@string/test_twitter_update" />
+
+        <activity android:name=".gamemanager.ViewPublicGameActivity" android:text="@string/view_public_games" />
+        <activity android:name=".gamemanager.CustomizePublicGameActivity" android:text="@string/customize_public_game" />
+        <activity android:name=".gamemanager.testOAuthActivity" android:text="@string/test_oauth" />
+        <activity android:name=".twitter.testTwitterStatusUpdateActivity" android:text="@string/test_twitter_update" />
+        <activity android:name=".gamemanager.GameOnInstallActivity" android:text="@string/gameon_install" />
+        <activity android:name=".gamemanager.GameOnAuthorizationActivity" android:text="@string/gameon_install" />
     </application>
         <uses-sdk android:minSdkVersion="4" />
     <uses-permission android:name="android.permission.INTERNET" /> 

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import com.jittr.android.gamemanager.GameOnActivity;
+import com.jittr.android.R;
 
 public class UpdateUserSettingsActivity extends GameOnActivity {
 

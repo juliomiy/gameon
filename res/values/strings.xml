@@ -18,6 +18,7 @@
     <string name="add_game">Add Game</string>
     <string name="subscribe">Subscribe</string>
     <string name="cancel">Cancel</string>
+    <string name="continue_string">Continue</string>
     <string name="unsaved_changes_title">Unsaved Changes</string>
     <string name="unsaved_changes_message">Would you like to add this Game?</string>
     <string name="discard">Discard</string>
@@ -28,6 +29,8 @@
     <string name="update_user_settings">Update User Settings</string>
     <string name="customize_public_game">Customize Public Game</string>
     <string name="app_description">Locale centered Gaming Application tapping into various Social Networks</string>
+    <string name="selectnetwork">Select primary identity</string>
+    <string name="gameon_install">GameOn Installation</string>
     <string name="title">Title</string>
 </resources>
 

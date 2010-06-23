@@ -2,9 +2,10 @@ package com.jittr.android.gamemanager;
 
 import com.jittr.android.gamemanager.adapters.GameListAdapter;
 import com.jittr.android.gamemanager.games.Game;
+import com.jittr.android.twitter.testTwitterStatusUpdateActivity;
 //import com.jittr.android.taskmanager.R;
 
-import android.R.layout;
+import com.jittr.android.R;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;

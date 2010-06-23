@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Used in customize Date driven layout -->
+    <string-array name="date_driven_choices">
+        <item>Before</item>
+        <item>On</item>
+        <item>After</item>
+        <item>Between</item>
+    </string-array>
+</resources>

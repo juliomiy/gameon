@@ -1,0 +1,73 @@
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  style="@style/gameon_background_color"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+    android:layout_gravity="center"
+  >
+<ImageView
+    android:id="@+id/logo"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:src="@drawable/jittrlogo"
+    android:layout_marginLeft="10px"
+    android:layout_marginRight="10px"
+    ></ImageView>
+ <TextView
+
+    android:id="@+id/instructions"
+    android:text="@string/selectnetwork"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_below="@+id/logo"
+ >
+ </TextView>
+ <RadioGroup
+   android:id="@+id/socialnetworkselection"
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:layout_below="@id/instructions"
+   android:orientation="horizontal"
+   android:layout_gravity="center"
+ >
+<RadioButton
+    android:text="@string/facebook"
+    style="@style/padded_small"
+    android:id="@+id/select_facebook" 
+    android:layout_width="wrap_content" 
+    android:layout_height="fill_parent">
+</RadioButton>
+<RadioButton 
+    android:text="@string/twitter" 
+    android:id="@+id/select_twitter"
+    android:layout_toRightOf="@+id/select_facebook"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+></RadioButton>
+<RadioButton 
+    android:text="@string/foursquare"
+     android:id="@+id/select_foursquare"
+     android:layout_toRightOf="@+id/select_twitter" 
+     android:layout_width="wrap_content"
+      android:layout_height="fill_parent">
+</RadioButton>
+</RadioGroup>
+<Button 
+   style="@style/continue_button"
+   android:id="@+id/continue_button" 
+   android:layout_height="wrap_content" 
+   android:layout_width="wrap_content"
+   android:layout_alignParentBottom="true" android:clickable="true" >
+ </Button>
+ <Button 
+   style="@style/cancel_button"
+   android:id="@+id/cancel" 
+   android:layout_alignParentBottom="true"
+   android:layout_height="wrap_content"
+   android:layout_width="wrap_content"
+   android:layout_toRightOf="@+id/continue_button"
+   >
+</Button>
+</RelativeLayout>

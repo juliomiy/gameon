@@ -1,6 +1,6 @@
 package com.jittr.android.gamemanager;
 
-import com.jittr.android.gamemanager.R;
+import com.jittr.android.R;
 import com.jittr.android.gamemanager.games.Game;
 import com.jittr.android.gamemanager.GameUserSettings;
 import android.app.Activity;

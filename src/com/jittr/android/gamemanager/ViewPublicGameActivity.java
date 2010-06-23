@@ -4,6 +4,7 @@ import static com.jittr.android.gamemanager.ViewPublicGameActivity.CUSTOMIZE_GAM
 
 import com.jittr.android.gamemanager.adapters.GameListAdapter;
 import com.jittr.android.gamemanager.games.Game;
+import com.jittr.android.R;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;

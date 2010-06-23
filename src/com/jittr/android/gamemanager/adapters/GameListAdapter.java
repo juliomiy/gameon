@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.jittr.android.gamemanager.R;
+import com.jittr.android.R;
 import com.jittr.android.gamemanager.games.Game;
 //import com.jittr.android.gamemanager.
 import com.jittr.android.gamemanager.views.GameListItem;
