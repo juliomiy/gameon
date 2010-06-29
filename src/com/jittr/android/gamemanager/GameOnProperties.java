@@ -21,11 +21,13 @@ public class GameOnProperties  {
     private Resources resources; // = appContext.getResources();
     private Context context;
     private SharedPreferences prefs;
+    private final String TAG="GameOnProperties";
     
     //private AssetManager assetManager = new AssetManager();
     
 	public GameOnProperties(Context context) {
 		// Read from the /res/raw directory
+		
 		this.context=context;
 		prefs = context.getSharedPreferences(APPLICATION_PREFERENCES, Context.MODE_PRIVATE);
 		try {
@@ -59,7 +61,7 @@ public class GameOnProperties  {
 		return value;
 	}  //getProperty
 
-/* Checks if this application has been previously run, returns true if it has, false otherwise */	
+/* Checks if this application has been previously run, returns true if this is first run, false if it has been run */	
 	public boolean firstRun() {
 		 if (prefs == null) return false;
 		 boolean value = prefs.getBoolean("firstrun", true);
@@ -69,7 +71,7 @@ public class GameOnProperties  {
 	public void setFirstRun() {
 		if (prefs == null) return;
 	    Editor editor = prefs.edit();
-	    editor.putBoolean("firstrun", true);
+	    editor.putBoolean("firstrun", false);  //set firstRun to false
 	    editor.commit();
 	}
 }  //class	

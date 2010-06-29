@@ -30,9 +30,10 @@ public class GOTwitterWrapper {
 		 consumerSecretKey = gameOnProperties.getProperty("GAMEON_TWITTER_CONSUMER_SECRET");
 		 twitter.setOAuthConsumer(consumerKey, consumerSecretKey);
 		 accessToken = loadAccessToken();
-		 if (accessToken != null) {
-			 twitter.setOAuthAccessToken(accessToken.getToken(),accessToken.getTokenSecret());
-		 }
+		 
+		// if (accessToken != null) {
+	//		 twitter.setOAuthAccessToken(accessToken.getToken(),accessToken.getTokenSecret());
+		// }
 	} //constructor
 	
 	private AccessToken loadAccessToken() {
@@ -45,25 +46,26 @@ public class GOTwitterWrapper {
 	    }
 	  }
     /* Get Request URL to get requestToken */
-	public String getAuthUrl() {
-		 try {
+	public String getAuthUrl() throws GameOnTwitterException {
+        authUrl = null;
+		try {
 		      if (null == currentRequestToken) {
 		        currentRequestToken = twitter.getOAuthRequestToken();
 		      }
 		      authUrl = currentRequestToken.getAuthorizationURL();
 		    } catch (TwitterException e) {
-		      e.printStackTrace();
+		    	throw new GameOnTwitterException("Error obtaining Request Token", e.getMessage(), e, TAG);
 		 }  //try
 	   return authUrl;	
 	} //authorize
 
-	 public boolean authorize(String pin) {
+	 public boolean authorize(String pin) throws GameOnTwitterException {
 		    try {
 		      AccessToken accessToken = twitter.getOAuthAccessToken();
 		      storeAccessToken(accessToken);
 		      return true;
 		    } catch (TwitterException e) {
-		      throw new RuntimeException(e.getMessage() + " Unable to authorize user", e); 
+		      throw new GameOnTwitterException( "Unable to authorize user",e.getMessage(), e, TAG); 
 		    }
 		  }
  	/* Store OAuth Token/Secret in sharedPreferences */
@@ -73,12 +75,18 @@ public class GOTwitterWrapper {
 		    this.accessToken = accessToken;
      } //storeAccessToken
 
-	 public void sendTwitterUpdate(String status) {
+ 	 /*update this user's status
+ 	  * 
+ 	  */
+	 public void sendTwitterUpdate(String status) throws GameOnTwitterException {
             try {
 				twitter.updateStatus(status);
 			} catch (TwitterException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new GameOnTwitterException("Failed Status Update",e.getMessage() ,e, TAG);
 			}
-	  }
+	  }  //sendTwitterUpdate
+	 
+	 public void getMe() {
+		// twitter.verifyCredentials();
+	 }
 } //class

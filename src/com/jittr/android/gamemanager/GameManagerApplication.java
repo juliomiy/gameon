@@ -36,7 +36,7 @@ public class GameManagerApplication extends Application {
 		database = helper.getWritableDatabase();
    /* check if this application has run before, if it hasn't - invoke the install/Configuration activity*/
 		gameOnProperties = new GameOnProperties(this);
-		if (gameOnProperties.firstRun()) {
+		if (gameOnProperties.firstRun() ==true) {
 			gameOnInstallConfiguration();
 		}
 		if (null == currentGames) {
