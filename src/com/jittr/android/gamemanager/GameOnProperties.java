@@ -51,10 +51,14 @@ public class GameOnProperties  {
 	}
 	/* retrieve shared Preference value based on key */
 	public String retrieveSharedPreference(String key) {
-		 if (prefs == null) return null;
-		 String value = prefs.getString(key, null);
-         return value;
+        return retrieveSharedPreference(key,null);
 	}
+
+	public String retrieveSharedPreference(String key, String defaultValue) {
+		String value = properties.getProperty(key,defaultValue);
+		return value;
+	}
+
 	public String getProperty(final String key) {
         String value = null;
         value = properties.getProperty(key);

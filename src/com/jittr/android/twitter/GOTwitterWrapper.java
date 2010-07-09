@@ -52,8 +52,10 @@ public class GOTwitterWrapper {
 		      if (null == currentRequestToken) {
 		        currentRequestToken = twitter.getOAuthRequestToken();
 		      }
+		      
 		      authUrl = currentRequestToken.getAuthorizationURL();
 		    } catch (TwitterException e) {
+		    	e.printStackTrace();
 		    	throw new GameOnTwitterException("Error obtaining Request Token", e.getMessage(), e, TAG);
 		 }  //try
 	   return authUrl;	

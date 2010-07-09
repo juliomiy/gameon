@@ -3,7 +3,6 @@
 	<name>GameOn</name>
 	<comment></comment>
 	<projects>
-		<project>fs_api_sax_parser</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

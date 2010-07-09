@@ -91,11 +91,15 @@ public class GameOnInstallActivity extends Activity {
 	          break;
 	       case SIGNUP_FOURSQUARE:
 	    	  // getFoursquareCredentials(v);
-	   // 	  authorizeFoursquare();
+	    	  authorizeFoursquare();
 	          break;
 	    } //switch
 	} //continueSignUp
 
+	private void authorizeFoursquare() {
+		Intent intent = new Intent(this,GameOnAuthorizationActivity2.class);
+		startActivity(intent);
+	}
 	//oauth protocol for obtaining user authorization on the user's behalf
 	private void authorizeTwitter(View v) {
 		Intent intent = new Intent(this,GameOnAuthorizationActivity.class);

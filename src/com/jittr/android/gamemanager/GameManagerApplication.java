@@ -46,7 +46,7 @@ public class GameManagerApplication extends Application {
 
 	/* GameOn install and configuraiton for the firstRun */
 	private void gameOnInstallConfiguration() {
-		Intent intent = new Intent(this, GameOnInstallActivity.class);
+		Intent intent = new Intent(GameManagerApplication.this, GameOnInstallActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
     } //gameOnInstallConfiguration
